@@ -8,7 +8,7 @@ if(NOT ANDROID)
 
   if(PYTHONLIBS_VERSION_STRING VERSION_LESS "3.8")
     # Debian Buster
-    find_package(Boost REQUIRED python37)
+    find_package(Boost REQUIRED python3)
   else()
     # Ubuntu Focal
     find_package(Boost REQUIRED python)
@@ -24,13 +24,14 @@ if(NOT OpenCV_FOUND)
   set(_opencv_version 3)
 endif()
 
-find_package(OpenCV ${_opencv_version} REQUIRED
+find_package(OpenCV 3 REQUIRED PATHS /usr/local/share/OpenCV NO_DEFAULT_PATH
   COMPONENTS
     opencv_core
     opencv_imgproc
     opencv_imgcodecs
   CONFIG
 )
+include(/usr/local/share/OpenCV/OpenCVConfig.cmake) #under catkin_python_setup()
 
 catkin_package(
   INCLUDE_DIRS include
